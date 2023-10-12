@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB; //DBクラスを使う
 
-class CreateUsersTable extends Migration
+class CreateUsersTable extends Migration //Migrationを拡張するCreateUsersTableクラス
 {
     /**
      * Run the migrations.
@@ -13,14 +14,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create('users', function (Blueprint $table) { /*usersテーブル作成*/
+            $table->increments('id'); //テーブルにidカラムを入れる
+            $table->string('name',12);  //テーブルにnameカラムを入れる
+            $table->string('email',12)->unique();  //テーブルにemailカラムを入れる
+            $table->string('password')->nullable();  //テーブルにpasswordカラムを入れる
+            $table->timestamps(); //テーブルに作成日時、更新日時カラムを入れる
         });
     }
 

@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CustomServiceProvider::class, /*サービスプロバイダを追加*/
+        /*Collective\Html\HtmlServiceProvider::class, HTMLタグを省略した記述方法をまとめたライブラリを使用できる*/
 
     ],
 
@@ -188,7 +190,7 @@ return [
     |
     */
 
-    'aliases' => [
+    'aliases' => [/*「aliases」というキーの中に、各機能が配列形式で格納*/
 
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
@@ -229,6 +231,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Form' => Collective\Html\FormFacade::class, /*formファサード機能を使用*/
+        'Html' => Collective\Html\HtmlFacade::class, /*htmlファサード機能を使用*/
 
     ],
 
