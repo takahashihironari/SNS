@@ -23,7 +23,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                //ログイン状態時はindexに遷移するよう修正
+                // return redirect(RouteServiceProvider::HOME);
+                return redirect('/index');
             }
         }
 

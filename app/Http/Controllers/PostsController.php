@@ -19,13 +19,9 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
 
     public function index(Request $request) //indexメソッド
     {
-        $keyword = $request->input('keyword'); //keyword変数にリクエストから呼び出したkeywordを代入
-        $query=DB::table('posts');//query変数にデータベースから取得したpostsテーブルのレコード情報を代入
-        if(!empty($keyword)) { //もしkeyword変数が空ではなかったら
-            $query->where('contents', 'LIKE', "%{$keyword}%");//query変数の中のkeyword変数の内容に当てはまるcontentsを呼び出す
-        }
-        $list = $query->get();//list変数にquery変数から受け取った値を代入
-        return view('posts.index', ['lists'=>$list]);//postsフォルダのindex.blade.phpでlistsを表示
+        $list = DB::table('posts')->get();
+        return view('posts.index',['lists'=>$list]);
+
     }
 
 }
