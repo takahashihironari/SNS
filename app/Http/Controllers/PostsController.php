@@ -17,7 +17,7 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
         ]);//required=必須項目 string=文字列か max=文字数の上限 space=空白か
     }
 
-    public function index()//indexメソッド
+    public function index(Request $request) //indexメソッド
     {
         $list = DB::table('posts')->get();
         return view('posts.index',['lists'=>$list]);
