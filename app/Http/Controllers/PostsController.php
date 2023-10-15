@@ -21,6 +21,7 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     {
         $list = DB::table('posts')->get();
         return view('posts.index',['lists'=>$list]);
+
     }
 
 }

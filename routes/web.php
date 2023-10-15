@@ -17,7 +17,6 @@ use App\Http\Controllers\PostsController; //PostsControllerクラスを呼び出
 Route::get('/', function () {
     return redirect('/login');//URLにルートパス指定時は「/login」にリダイレクト
 });
-
 Auth::routes(); //authのルーティング
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index'])->name('index'); //homeページでHomeControllerクラスのindexメソッド処理を実行し、名前をhomeとする
 Route::get('index',[PostsController::class,'index']); //indexページでPostControllerのindexメソッド処理を実行
