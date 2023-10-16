@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CustomServiceProvider::class, /*サービスプロバイダを追加*/
-        /*Collective\Html\HtmlServiceProvider::class, HTMLタグを省略した記述方法をまとめたライブラリを使用できる*/
+        Collective\Html\HtmlServiceProvider::class, /*HTMLタグを省略した記述方法をまとめたライブラリを使用できる*/
 
     ],
 
