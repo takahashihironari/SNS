@@ -20,3 +20,8 @@ Route::get('/', function () {
 Auth::routes(); //authのルーティング
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index'])->name('index'); //homeページでHomeControllerクラスのindexメソッド処理を実行し、名前をhomeとする
 Route::get('index',[PostsController::class,'index']); //indexページでPostControllerのindexメソッド処理を実行
+Route::get('/create-form', [PostsController::class, 'createForm']); //create-formページでPostControllerのcreateFormメソッド処理を実行
+Route::post('post/create', [PostsController::class, 'create']); //createページでPostControllerのcreateメソッド処理を実行
+Route::get('post/{id}/update-form', [PostsController::class, 'updateForm']); //get通信で送られてきたidを受け取るupdateページでPostControllerのupdateFormメソッド処理を実行
+Route::post('post/update', [PostsController::class, 'update']);  //updateページでPostControllerのupdateメソッド処理を実行
+Route::get('post/{id}/delete', [PostsController::class, 'delete']); //get通信で送られてきたidを受け取るdeleteページでPostControllerのdeleteメソッド処理を実行
