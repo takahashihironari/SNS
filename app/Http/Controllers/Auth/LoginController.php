@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request; //Requestクラスを使用
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -44,4 +45,9 @@ class LoginController extends Controller
     {
         return redirect(route('login'));//ログアウト後はログインページに遷移
     }
+
+    protected function validatePassword($user, $password)
+{
+    return Hash::check($password, $user->password);
+}
 }

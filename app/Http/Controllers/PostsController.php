@@ -20,7 +20,8 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     public function index(Request $request) //indexメソッド
     {
         $list = DB::table('posts')->get();
-        return view('posts.index',['lists'=>$list]);
+        $user  = Auth::user();
+        return view('posts.index',['lists'=>$list,'user'=>$user]);
 
     }
 

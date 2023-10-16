@@ -1,5 +1,19 @@
 @extends('layouts.app')
 @section('content')
+
+
+<div class="card-body text-center">
+    <div class="profile-image">
+    <a href="{{ route('user.profile', ['id' => $user->id]) }}" class="name">
+     <img src="{{ asset('storage/'.$user->avatar) }}"alt="Profile Image" class="avatar">
+    </a>
+    </div>
+
+    <a href="{{ route('user.profile', ['id' => $user->id]) }}" class="name">
+       <h4 class="mt-3">{{ $user->name }}</h4>
+    </a>
+</div>
+
 <div class='container'> <!--containerクラス-->
   <p class="pull-right"><a class="btn btn-success" href="/create-form">投稿する</a></p> <!--投稿するボタン-->
   <h2 class='page-header'>投稿一覧</h2> <!--タイトル-->
@@ -30,3 +44,18 @@
   </table>
 </div>
 @endsection
+
+
+<style>
+
+.profile-image {
+    text-align:center;
+    margin-top: 20px;
+}
+
+.profile-image img {
+    max-width: 80px;
+    border: 1px solid #ccc;
+    border-radius: 50%; /* 50%に設定して丸くします */
+}
+</style>
