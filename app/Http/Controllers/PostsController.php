@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers; //App\Http\Controllersフォルダにある
 use App\Models\Post; //Postクラスを使う
+use App\Models\User; //Userクラスを使う
 use Illuminate\Http\Request; //Requestクラスを使用
 use Illuminate\Support\Facades\Auth; //Authクラスを使用
 use Illuminate\Support\Facades\DB; //DBクラスを使用
@@ -26,7 +27,8 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     }
     public function createForm() //createFormメソッド
     {
-    return view('posts.createForm'); //postsディレクトリの中にあるcreateForm.blade.phpを呼び出す
+         $user = Auth::user();
+         return view('posts.createForm', compact('user')); //postsディレクトリの中にあるcreateForm.blade.phpを呼び出す
     }
 
     public function create(Request $request) //$request変数に値が渡される
@@ -44,11 +46,13 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
 
     $contents = $request->input('newContents'); //contents変数にrequest変数で取得したnewContentsの値を代入
     $name = $request->input('userName'); //name変数にrequest変数で取得したuserNameの値を代入
+    $id=$request->input('id');
     DB::table('posts')->insert([ //postsテーブルにインサートする
     'contents' => $contents, //＄contentsをcontentsとして
     'user_name' => $name, //＄nameをuser_nameとして
     'created_at' => Carbon::now(), // 現在時刻をcreated_atとして
-    'updated_at' => Carbon::now() // 現在時刻をupdated_atとして
+    'updated_at' => Carbon::now(), // 現在時刻をupdated_atとして
+    'user_id'   => $id //＄idをuser_idとして
     ]);
     return redirect('/index');//index.blade.phpに遷移
     }
