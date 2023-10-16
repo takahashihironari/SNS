@@ -11,8 +11,9 @@
             <ul>
                 @foreach ($followers as $follower)
                     <li>
+                      <a href="{{ route('user.profile', ['id' => $follower->id]) }}" class="user-name">
                         <img src="{{ asset('storage/'.$follower->avatar) }}" alt="Profile Image" class="user-icon">
-                        <a href="{{ route('user.profile', ['id' => $follower->id]) }}" class="user-name">{{ $follower->name }}</a>
+                     {{ $follower->name }}</a>
                     </li>
                 @endforeach
             </ul>
