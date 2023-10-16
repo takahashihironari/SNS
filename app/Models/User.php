@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -46,5 +47,37 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'user_id');
     }
+
+
+
+
+     // 自分をフォローしているユーザー
+    public function followers()
+    {
+
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+
+    }
+
+
+
+    // 自分がフォローしているユーザー
+    public function following()
+    {
+
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+
+    }
+
+
+    // 指定されたユーザーをフォローしているかどうか
+    public function isFollowing($user)
+    {
+
+        return $this->following->contains($user);
+
+    }
+
+
 
 }

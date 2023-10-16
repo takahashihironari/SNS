@@ -5,7 +5,7 @@
 <div class="card-body text-center">
     <div class="profile-image">
     <a href="{{ route('user.profile', ['id' => $user->id]) }}" class="name">
-     <img src="{{ asset('storage/'.$user->avatar) }}"alt="Profile Image" class="avatar">
+     <img src="{{ asset('storage/'.$user->avatar) }}"alt="Profile Image" class="user-icon">
     </a>
     </div>
 
@@ -32,7 +32,9 @@
     </tr>
     @foreach ($lists as $list)
     <tr> <!--containerクラス-->
-      <td>{{ $list->user_name }}</td> <!--$listの中のusernameを表示-->
+      <td> <a href="{{ route('user.profile', ['id' => $list->user->id]) }}" class="name">{{ $list->user_name }}
+        <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon"></a>
+      </td> <!--$listの中のusernameを表示-->
       <td>{{ $list->contents }}</td> <!--$listの中のcontentsを表示-->
       <td>{{ $list->created_at }}</td> <!--$listの中のcreated_atを表示-->
       @if ($list->user_name == Auth::user()->name) <!-- ログインユーザーが投稿したもののみボタン表示 -->
@@ -48,14 +50,11 @@
 
 <style>
 
-.profile-image {
-    text-align:center;
-    margin-top: 20px;
-}
 
-.profile-image img {
-    max-width: 80px;
-    border: 1px solid #ccc;
-    border-radius: 50%; /* 50%に設定して丸くします */
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 </style>

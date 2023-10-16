@@ -62,21 +62,30 @@ class ProfileController extends Controller
     else {
         // パスワードが正しくない場合の処理
         return redirect()->back()->with('error', 'パスワードが正しくありません');
+    }}
+
+
+     //フォロワー一覧
+    public function followers($id)
+    {
+
+        $user      = User::find($id);
+        $followers = $user->followers;
+
+        return view('posts.followers', compact('user', 'followers'));
+
     }
 
-}
 
 
+    // フォロー一覧
+    public function following($id)
+    {
 
+        $user = User::find($id);
+        $following = $user->following;
 
+        return view('posts.following', compact('user', 'following'));
 
-
-
-
-
-
-
-
-
-
+    }
 }
