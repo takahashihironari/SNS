@@ -20,7 +20,7 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
 
     public function index(Request $request) //indexメソッド
     {
-        $list = DB::table('posts')->get();
+        $list  = Post::all();
         $user  = Auth::user();
         return view('posts.index',['lists'=>$list,'user'=>$user]);
 
@@ -102,5 +102,37 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     {
     $this->middleware('auth'); //ログインできているか確認
     }
+
+
+
+
+ public function search(Request $request)
+    {
+
+        $searchQuery = $request -> input('search_query');
+
+        // 検索ワードが空の場合は全ユーザーを表示
+        if (empty($searchQuery)) {
+            $users = User::all();
+        }
+        else {
+         // あいまい検索
+            $users = User::where('name', 'like', '%' . $searchQuery . '%')->get();
+        }
+
+
+        return view('posts.user_search', compact('users', 'searchQuery'));
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 }

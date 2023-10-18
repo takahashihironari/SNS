@@ -20,24 +20,24 @@
 
 <ul class="navbar-nav ml-auto">
  <li class="nav-item">
-        <a href="#" class="no-underline">フォロー数:</a>
+        <a href="{{ route('following', ['id' => $user->id]) }}" class="no-underline">フォロー数:{{ $user->following->count() }}</a>
 
     </li>
     <li class="nav-item">
-        <a href="#" class="no-underline">フォロワー数:</a>
+        <a href="{{ route('followers', ['id' => $user->id]) }}" class="no-underline">フォロワー数:{{ $user->followers->count() }}</a>
     </li>
 
             <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしているユーザーの場合 -->
             @if(auth()->user()->id !== $user->id)
                 @if (auth()->user()->isFollowing($user))
-                    <form action="#" method="POST">
+                    <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
                                  @csrf
                         <button type="submit" class="btn btn-danger">フォロー中</button>
                     </form>
 
             <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしていないユーザーの場合 -->
                 @else
-                    <form action="#" method="POST">
+                    <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
                                  @csrf
                         <button type="submit" class="btn btn-success">フォロー</button>
                     </form>
