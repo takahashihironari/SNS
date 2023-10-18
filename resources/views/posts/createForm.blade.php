@@ -8,6 +8,7 @@
   <!-- {{ Form::input('text', 'userName',  Auth::user()->name) }} -->
   {{ Form::label('iUserName',  Auth::user()->name) }}
   {!! Form::hidden('userName', Auth::user()->name) !!} <!--id-->
+     <input type="hidden" name="id" value="{{$user->id}}">
   </div>
   <div class="form-group">
   {!! Form::input('text', 'newContents', null, ['required', 'class' => 'form-control', 'placeholder' => '投稿内容']) !!} <!--投稿内容-->
