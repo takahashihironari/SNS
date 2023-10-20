@@ -165,10 +165,7 @@
     font-size: 16px;
 }
 
-/* タイトルがない場合のメッセージ */
-.user-posts li {
-    font-size: 16px;
-    color: #777;
+li{
+    list-style:none
 }
-
 </style>
