@@ -16,7 +16,9 @@ class ProfileController extends Controller
     {
 
         $user  = User::find($id);
-        $lists = Post::where('user_id', $id)->get();
+        $lists = Post::where('user_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
 
         return view('posts.profile', compact('user', 'lists'));
 
