@@ -103,10 +103,16 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     $this->middleware('auth'); //ログインできているか確認
     }
 
+    public function userSearch() //userSearchメソッド
+    {
+         $user = Auth::user();
+         return view('posts.User_Search', compact('user')); //postsディレクトリの中にあるcreateForm.blade.phpを呼び出す
+    }
 
 
 
- public function search(Request $request)
+
+    public function search(Request $request)
     {
 
         $searchQuery = $request -> input('search_query');
