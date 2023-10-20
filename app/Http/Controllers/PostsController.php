@@ -103,27 +103,34 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     $this->middleware('auth'); //ログインできているか確認
     }
 
-
-
-
- public function search(Request $request)
+    public function userSearch(Request $request) //userSearchメソッド
     {
-
-        $searchQuery = $request -> input('search_query');
-
-        // 検索ワードが空の場合は全ユーザーを表示
-        if (empty($searchQuery)) {
-            $users = User::all();
-        }
-        else {
-         // あいまい検索
-            $users = User::where('name', 'like', '%' . $searchQuery . '%')->get();
-        }
-
-
-        return view('posts.user_search', compact('users', 'searchQuery'));
+        $user  = User::user();
+        return view('posts.User_Search',['user'=>$user]);
 
     }
+
+
+
+
+ //public function search(Request $request)
+    //{
+
+        //$searchQuery = $request -> input('search_query');
+
+        // 検索ワードが空の場合は全ユーザーを表示
+        //if (empty($searchQuery)) {
+           //$users = User::all();
+        //}
+        //else {
+         // あいまい検索
+            //$users = User::where('name', 'like', '%' . $searchQuery . '%')->get();
+        //}
+
+
+        //return view('posts.user_search', compact('users', 'searchQuery'));
+
+    //}
 
 
 
