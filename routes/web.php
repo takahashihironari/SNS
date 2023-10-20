@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;//Routeを使う
 use App\Http\Controllers\PostsController; //PostsControllerクラスを呼び出す
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,7 @@ Route::get('/', function () {
 Auth::routes(); //authのルーティング
 Route::get('/index', [App\Http\Controllers\Controller::class, 'index'])->name('index'); //homeページでHomeControllerクラスのindexメソッド処理を実行し、名前をhomeとする
 Route::get('index',[PostsController::class,'index']); //indexページでPostControllerのindexメソッド処理を実行
-
+Route::get('complete',[RegisterController::class,'complete']);
 
 
 // プロフィール関連
@@ -48,4 +49,9 @@ Route::get('post/{id}/delete', [PostsController::class, 'delete']); //get通信�
 Route::post('/follow/{user}', [FollowController::class, 'follow'])     -> name('follow');  //フォローする
 Route::post('/unfollow/{user}', [FollowController::class, 'unfollow']) -> name('unfollow');  //アンフォローする
 
+<<<<<<< HEAD
 Route::get('/user-search', [PostsController::class, 'userSearch']);
+=======
+// 検索関連
+Route::get('/user-search', [PostsController::class, 'userSearch']) -> name('user.search');;
+>>>>>>> main

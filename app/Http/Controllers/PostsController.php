@@ -111,8 +111,6 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     }
 
 
-
-
  //public function search(Request $request)
     //{
 

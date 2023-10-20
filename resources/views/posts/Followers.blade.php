@@ -7,14 +7,27 @@
         <h1>{{ $user->name }}</h1>
         <h5>フォロワー</h5>
 
-       <div class="follow-list">
+        <div class="follow-list">
             <ul>
                 @foreach ($followers as $follower)
-                    <li>
-                      <a href="{{ route('user.profile', ['id' => $follower->id]) }}" class="user-name">
-                        <img src="{{ asset('storage/'.$follower->avatar) }}" alt="Profile Image" class="user-icon">
-                     {{ $follower->name }}</a>
-                    </li>
+                <li class=followers_box>
+
+                    <a href="{{ route('user.profile', ['id' => $follower->id]) }}" class="user-name">
+                    <img src="{{ asset('storage/'.$follower->avatar) }}" alt="Profile Image" class="user-icon">
+                    {{ $follower->name }}
+                    </a>
+
+                    @if (auth()->user()->isFollowing($follower))
+                        <form method="POST" action="{{ route('unfollow', ['user' => $follower->id]) }}">
+                            @csrf   <button type="submit">アンフォロー</button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('follow', ['user' => $follower->id]) }}">
+                            @csrf  <button type="submit">フォロー</button>
+                        </form>
+                    @endif
+
+                </li>
                 @endforeach
             </ul>
        </div>
@@ -23,26 +36,10 @@
 
 @endsection
 
-@push('styles')
-<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-@endpush
-
-
-
 
 
 <style>
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
 
 ul {
     list-style: none;
@@ -54,7 +51,7 @@ li {
 }
 
 
-li {
+.followers_box {
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f9f9f9;
