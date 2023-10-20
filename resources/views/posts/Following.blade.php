@@ -5,15 +5,22 @@
     <div class="container">
 
         <h1>{{ $user->name }}</h1>
-        <h5>フォロー</h5>
+        <h5>フォロー中</h5>
 
         <div class="follow-list">
             <ul>
                 @foreach ($following as $followedUser)
-                    <li>
-                    <a href="{{ route('user.profile', ['id' => $followedUser->id]) }}">
-                    <img src="{{ asset('storage/'.$followedUser->avatar) }}" alt="Profile Image" class="user-icon">
-                    {{ $followedUser->name }}</a>
+                    <li class=following_box>
+
+                        <a href="{{ route('user.profile', ['id' => $followedUser->id]) }}">
+                        <img src="{{ asset('storage/'.$followedUser->avatar) }}" alt="Profile Image" class="user-icon">
+                        {{ $followedUser->name }}
+                        </a>
+
+                        <form method="POST" action="{{ route('unfollow', ['user' => $followedUser->id]) }}">
+                            @csrf <button type="submit">アンフォロー</button>
+                        </form>
+
                     </li>
                 @endforeach
             </ul>
@@ -34,16 +41,6 @@
 <style>
 
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
 
 ul {
     list-style: none;
@@ -55,7 +52,7 @@ li {
 }
 
 
-li {
+.following_box{
     border: 1px solid #ddd;
     padding: 10px;
     background-color: #f9f9f9;
