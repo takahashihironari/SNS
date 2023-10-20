@@ -31,8 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/'; //ユーザー登録後はログインページに遷移
-
+    protected $redirectTo = '/complete';
     /**
      * Create a new controller instance.
      *
@@ -40,7 +39,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        // ユーザー登録後、ログインをした状態にして、完了画面を表示するため、completeではguestミドルウェアを無効にする
+        $this->middleware('guest', ['except' => 'complete']);
     }
 
     /**
@@ -54,7 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255', 'space'], //required=必須項目 string=文字列か max=文字数の上限 space=空白か
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], //email=メールアドレスとして正しいか unique:users=データベースの項目と重複していないか
-            'password' => ['required', 'string', 'min:8', 'confirmed'], //min=文字数の下限 confirmed=password_confirmation項目に同じものが設定されてるか
+            'password' => ['required', 'string', 'min:6', 'confirmed'], //min=文字数の下限 confirmed=password_confirmation項目に同じものが設定されてるか
         ]);
     }
 
@@ -84,5 +84,10 @@ class RegisterController extends Controller
 
         return $this->registered($request, $user)
                     ?: redirect($this->redirectPath());
+    }
+    //完了画面出力
+    public function complete()
+    {
+        return view('auth.complete');
     }
 }

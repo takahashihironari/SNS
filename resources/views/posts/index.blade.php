@@ -16,12 +16,8 @@
 
 <div class='container'> <!--containerクラス-->
   <p class="pull-right"><a class="btn btn-success" href="/create-form">投稿する</a></p> <!--投稿するボタン-->
+  <p class="pull-right"><a class="btn btn-success" href="/user-search">検索</a></p> <!--検索ボタン-->
   <h2 class='page-header'>投稿一覧</h2> <!--タイトル-->
-  <div id="search"> <!--検索ボタン-->
-      <form action="/index" method="get"> <!--indexページにget通信で送る-->
-          <input type="submit" name="submit" value="検索"> <!--ボタン-->
-      </form>
-  </div>
   <table class='table table-hover'> <!--表-->
     <tr> <!--表の1行-->
       <th>名前</th> <!--表の見出し-->
