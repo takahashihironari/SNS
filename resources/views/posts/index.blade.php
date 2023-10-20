@@ -31,18 +31,23 @@
       <th></th> <!--表の見出し-->
     </tr>
     @foreach ($lists as $list)
-    <tr> <!--containerクラス-->
-      <td> <a href="{{ route('user.profile', ['id' => $list->user->id]) }}" class="name">{{ $list->user_name }}
-        <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon"></a>
-      </td> <!--$listの中のusernameを表示-->
-      <td>{{ $list->contents }}</td> <!--$listの中のcontentsを表示-->
-      <td>{{ $list->created_at }}</td> <!--$listの中のcreated_atを表示-->
-      @if ($list->user_name == Auth::user()->name) <!-- ログインユーザーが投稿したもののみボタン表示 -->
-      <td><a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a></td> <!--更新ボタン-->
-      <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a></td> <!--削除ボタン-->
-      @endif
-    </tr>
-    @endforeach
+            @if ($list->user_name == Auth::user()->name || in_array($list->user->id, Auth::user()->following->pluck('id')->toArray()))
+                <tr>
+                    <td>
+                        <a href="{{ route('user.profile', ['id' => $list->user->id]) }}" class="name">
+                            {{ $list->user_name }}
+                            <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon">
+                        </a>
+                    </td>
+                    <td>{{ $list->contents }}</td>
+                    <td>{{ $list->created_at }}</td>
+                    @if ($list->user_name == Auth::user()->name)
+                        <td><a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a></td>
+                        <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a></td>
+                    @endif
+                </tr>
+            @endif
+        @endforeach
   </table>
 </div>
 @endsection
