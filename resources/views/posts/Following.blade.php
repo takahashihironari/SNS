@@ -8,21 +8,22 @@
         <h5>フォロー中</h5>
 
         <div class="follow-list">
-            <ul>
-                @foreach ($following as $followedUser)
-                    <li class=following_box>
-
-                        <a href="{{ route('user.profile', ['id' => $followedUser->id]) }}">
+           <ul>
+            @foreach ($following as $followedUser)
+                <li class="following_box">
+                    <a href="{{ route('user.profile', ['id' => $followedUser->id]) }}">
                         <img src="{{ asset('storage/'.$followedUser->avatar) }}" alt="Profile Image" class="user-icon">
                         {{ $followedUser->name }}
-                        </a>
+                    </a>
 
+                    @if (Auth::check() && Auth::user()->id !== $followedUser->id)
                         <form method="POST" action="{{ route('unfollow', ['user' => $followedUser->id]) }}">
-                            @csrf <button type="submit">アンフォロー</button>
+                            @csrf
+                            <button type="submit">アンフォロー</button>
                         </form>
-
-                    </li>
-                @endforeach
+                    @endif
+                </li>
+            @endforeach
             </ul>
         </div>
 
