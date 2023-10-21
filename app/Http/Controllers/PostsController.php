@@ -104,32 +104,39 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     $this->middleware('auth'); //ログインできているか確認
     }
 
-    public function userSearch(Request $request) //userSearchメソッド
+    //public function userSearch(Request $request) //userSearchメソッド
+    //{
+        //$user  = User::user();
+        //return view('posts.User_Search',['user'=>$user]);
+
+    //}
+
+
+    public function search(Request $request)
     {
-        $user  = User::user();
-        return view('posts.User_Search',['user'=>$user]);
+
+        $searchQuery = $request -> input('search_query');
+
+        // 検索ワードが空の場合は全ユーザーを表示
+        if (empty($searchQuery)) {
+           $users = User::all();
+        }
+        else {
+         // あいまい検索
+            $users = User::where('name', 'like', '%' . $searchQuery . '%')->get();
+        }
+
+
+        return view('posts.user_search', compact('users', 'searchQuery'));
 
     }
 
-
- //public function search(Request $request)
-    //{
-
-        //$searchQuery = $request -> input('search_query');
-
-        // 検索ワードが空の場合は全ユーザーを表示
-        //if (empty($searchQuery)) {
-           //$users = User::all();
-        //}
-        //else {
-         // あいまい検索
-            //$users = User::where('name', 'like', '%' . $searchQuery . '%')->get();
-        //}
-
-
-        //return view('posts.user_search', compact('users', 'searchQuery'));
-
-    //}
+    public function userSearch()
+    {
+    $query=DB::table('users');
+    $user = $query->get();//user変数にquery変数から受け取った値を代入
+    return view('posts.User_Search',['users'=>$user]);
+    }
 
 
 
