@@ -20,7 +20,8 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
 
     public function index(Request $request) //indexメソッド
     {
-        $list  = Post::all();
+        // $list  = Post::all();
+        $list = Post::orderBy('created_at', 'desc')->get(); //orderByでソート条件を追加　('created_at', 'desc')　＝　'created_at'を'降順’で表示
         $user  = Auth::user();
         return view('posts.index',['lists'=>$list,'user'=>$user]);
 
