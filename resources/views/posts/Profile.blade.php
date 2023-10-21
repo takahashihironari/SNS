@@ -68,7 +68,7 @@
 
             @if ($list->user_name == Auth::user()->name)
                 <td><a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a></td>
-                <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a>\
+                <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a>
             </td>
             @endif
 
