@@ -39,7 +39,7 @@
                 @else
                     <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
                                  @csrf
-                        <button type="submit" class="btn btn-success">フォロー</button>
+                        <button type="submit" class="btn btn-success">フォローする</button>
                     </form>
                 @endif
             @endif
@@ -168,4 +168,6 @@
 li{
     list-style:none
 }
+
+
 </style>

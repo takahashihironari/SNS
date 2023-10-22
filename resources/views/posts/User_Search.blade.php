@@ -15,7 +15,23 @@
             <li>
                 <img src="{{ asset('storage/'.$user->avatar) }}" alt="Profile Image" class="avatar">
                 <a href="{{ route('user.profile', ['id' => $user->id]) }}">{{ $user->name }}</a>
-            </li>
+
+             @if(auth()->user()->id !== $user->id)
+                @if (auth()->user()->isFollowing($user))
+                    <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
+                                 @csrf
+                        <button type="submit" class="btn btn-danger">フォロー中</button>
+                    </form>
+
+            <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしていないユーザーの場合 -->
+                @else
+                    <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
+                 @csrf
+                    <button type="submit" class="btn btn-success le">フォローする</button>
+                    </form>
+                @endif
+            @endif
+               </li>
         @endforeach
 
         @if (count($users) == 0)
@@ -27,8 +43,6 @@
     <!-- トップに戻るボタン -->
 
 </div>
-
-
 @endsection
 
 
@@ -39,13 +53,13 @@
 <style>
 
 
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
+
 
 .contain {
     max-width: 800px;
@@ -108,13 +122,16 @@ a {
     object-fit: cover;
 }
 
+li a {
+    margin-right: 80px; /* 20pxの間隔を追加 */
+}
+
 
 
 .top {
     padding-left: 280px;
 
 }
-
 
 
 
