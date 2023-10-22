@@ -104,13 +104,12 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     $this->middleware('auth'); //ログインできているか確認
     }
 
-    public function userSearch() //userSearchメソッド
-    {
-         $user = Auth::user();
-         return view('posts.User_Search', compact('user')); //postsディレクトリの中にあるcreateForm.blade.phpを呼び出す
-    }
+    //public function userSearch(Request $request) //userSearchメソッド
+    //{
+        //$user  = User::user();
+        //return view('posts.User_Search',['user'=>$user]);
 
-
+    //}
 
 
     public function search(Request $request)
@@ -120,7 +119,7 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
 
         // 検索ワードが空の場合は全ユーザーを表示
         if (empty($searchQuery)) {
-            $users = User::all();
+           $users = User::all();
         }
         else {
          // あいまい検索
@@ -130,6 +129,13 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
 
         return view('posts.user_search', compact('users', 'searchQuery'));
 
+    }
+
+    public function userSearch()
+    {
+    $query=DB::table('users');
+    $user = $query->get();//user変数にquery変数から受け取った値を代入
+    return view('posts.User_Search',['users'=>$user]);
     }
 
 
