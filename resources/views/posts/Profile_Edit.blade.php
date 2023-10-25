@@ -3,37 +3,43 @@
 @section('content')
 <div class="container">
     <h4>プロフィール編集</h4>
-    <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group">
-            <label for="name">名前</label>
-            <input type="text" name="name" value="{{ $user->name }}" class="form-control">
-        </div>
-        @error('name')
-<div class="alert alert-danger">{{ $message }}</div>
-@enderror
-        <div class="form-group">
-            <label for="introduction">自己紹介</label>
-            <textarea class="form-control" name="introduction">{{ $user->introduction }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="avatar">アイコン画像</label>
-            <div class="profile-image">
-                <img src="{{ asset('storage/'.$user->avatar) }}" alt="Profile Image">
+
+      <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="name">名前</label>
+              <input type="text" name="name" value="{{ $user->name }}" class="form-control">
             </div>
-            <input type="file" name="avatar" class="form-control-file mt-2">
-        </div>
-<div class="form-group">
-            <label for="current_password">パスワード</label>
-            <input type="text" name="current_password" class="form-control">
-        </div>
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
- <button type="submit" class="btn btn-primary">更新</button>
+            @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+             <div class="form-group">
+                <label for="introduction">自己紹介</label>
+                <textarea class="form-control" name="introduction">{{ $user->introduction }}</textarea>
+             </div>
+
+             <div class="form-group">
+                <label for="avatar">アイコン画像</label>
+                <div class="profile-image">
+                  <img src="{{ asset('storage/'.$user->avatar) }}" alt="Profile Image">
+                </div>
+                <input type="file" name="avatar" class="form-control-file mt-2">
+            </div>
+
+            <div class="form-group">
+                 <label for="current_password">パスワード</label>
+                 <input type="text" name="current_password" class="form-control">
+            </div>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <button type="submit" class="btn btn-primary">更新</button>
     </form>
+
 </div>
 
 @endsection
