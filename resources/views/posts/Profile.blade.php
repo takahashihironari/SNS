@@ -7,7 +7,6 @@
         <img src="{{ asset('storage/'.$user->avatar) }}" alt="Profile Image">
     </div>
 
-
     <div class="user-details">
         <h4>{{ $user->name }}</h4>
 
@@ -19,30 +18,29 @@
         <h5>自己紹介: {{ $user->introduction }}</h5>
 
 <ul class="navbar-nav ml-auto">
- <li class="nav-item">
-        <a href="{{ route('following', ['id' => $user->id]) }}" class="no-underline">フォロー数:{{ $user->following->count() }}</a>
 
+    <li class="nav-item">
+            <a href="{{ route('following', ['id' => $user->id]) }}" class="no-underline">フォロー数:{{ $user->following->count() }}</a>
     </li>
     <li class="nav-item">
         <a href="{{ route('followers', ['id' => $user->id]) }}" class="no-underline">フォロワー数:{{ $user->followers->count() }}</a>
     </li>
 
-            <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしているユーザーの場合 -->
-            @if(auth()->user()->id !== $user->id)
-                @if (auth()->user()->isFollowing($user))
-                    <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
-                                 @csrf
-                        <button type="submit" class="btn btn-danger">フォロー中</button>
-                    </form>
-
-            <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしていないユーザーの場合 -->
-                @else
-                    <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
-                                 @csrf
-                        <button type="submit" class="btn btn-success">フォロー</button>
-                    </form>
-                @endif
-            @endif
+    <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしているユーザーの場合 -->
+    @if(auth()->user()->id !== $user->id)
+        @if (auth()->user()->isFollowing($user))
+        <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
+        @csrf
+            <button type="submit" class="btn btn-danger">フォロー中</button>
+        </form>
+    <!-- 表示しているユーザーがログインユーザーではない場合かつ、フォローしていないユーザーの場合 -->
+        @else
+            <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
+                            @csrf
+                <button type="submit" class="btn btn-success">フォロー</button>
+            </form>
+        @endif
+    @endif
 
 </ul>
 </div>
@@ -54,18 +52,29 @@
     @forelse ($lists as $list)
         <li class="post-item">
             <div class="post-header">
+
                 <div class="user-info">
                     <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="Profile Image" class="avatar">
                     <h6>{{ $list->user_name }}</h6>
                 </div>
+
                 <div class="post-meta">
                     <span>{{ $list->created_at->format('Y/m/d') }}</span>
                 </div>
+
             </div>
+
             <p>{{ $list->contents }}</p>
+
+            @if ($list->user_name == Auth::user()->name)
+                <td><a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a></td>
+                <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a>
+            </td>
+            @endif
+
         </li>
 
-    @empty   <!-- 空の場合 -->
+    @empty <!-- 空の場合 -->
         <li>投稿はありません。</li>
     @endforelse
 

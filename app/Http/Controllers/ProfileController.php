@@ -36,8 +36,8 @@ class ProfileController extends Controller
 
 
     // プロフィール更新
-  public function update(Request $request)
-{
+    public function update(Request $request)
+    {
     $user = auth()->user();
 
       $request->validate([
@@ -59,6 +59,8 @@ class ProfileController extends Controller
     if (Hash::check($request->input('current_password'), $user->password)) {
         // パスワードが正しい場合の処理
         $user->save();
+        Post::where('user_id', $user->id)
+        ->update(['user_name' => $request->input('name')]);
         return redirect()->route('user.profile', ['id' => $user->id]);
     }
     else {
@@ -67,7 +69,8 @@ class ProfileController extends Controller
     }}
 
 
-     //フォロワー一覧
+
+    //フォロワー一覧
     public function followers($id)
     {
 
@@ -80,7 +83,7 @@ class ProfileController extends Controller
 
 
 
-    // フォロー一覧
+    //フォロー一覧
     public function following($id)
     {
 
@@ -90,4 +93,6 @@ class ProfileController extends Controller
         return view('posts.following', compact('user', 'following'));
 
     }
+
+
 }
