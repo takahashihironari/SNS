@@ -3,12 +3,7 @@
 @section('content')
 
 <div class="contain">
-    <h1>ユーザー検索</h1>
-
-    <form action="{{ route('user.search-result') }}" method="GET">
-        <input type="text" name="keyword" placeholder="ユーザー名を入力してください">
-        <button type="submit">検索</button>
-    </form>
+    <h1>「{{$search}}」の検索結果</h1>
 
     <ul>
         @foreach ($users as $user)
@@ -18,12 +13,17 @@
             </li>
         @endforeach
 
+        @if (count($users) == 0)
+            <p>検索結果は０件です。</p>
+        @endif
+
     </ul>
 
 </div>
 
 
 @endsection
+
 
 
 

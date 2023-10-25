@@ -104,39 +104,26 @@ class PostsController extends Controller //Controllerクラスを拡張するPos
     $this->middleware('auth'); //ログインできているか確認
     }
 
-    //public function userSearch(Request $request) //userSearchメソッド
-    //{
-        //$user  = User::user();
-        //return view('posts.User_Search',['user'=>$user]);
-
-    //}
-
-
-    public function search(Request $request)
-    {
-
-        $searchQuery = $request -> input('search_query');
-
-        // 検索ワードが空の場合は全ユーザーを表示
-        if (empty($searchQuery)) {
-           $users = User::all();
-        }
-        else {
-         // あいまい検索
-            $users = User::where('name', 'like', '%' . $searchQuery . '%')->get();
-        }
-
-
-        return view('posts.user_search', compact('users', 'searchQuery'));
-
-    }
-
     public function userSearch()
     {
     $query=DB::table('users');
     $user = $query->get();//user変数にquery変数から受け取った値を代入
     return view('posts.User_Search',['users'=>$user]);
     }
+
+    public function searchResult(Request $request)
+    {
+        $search = $request->input('keyword');//リクエストからkeywordパラメーターの値を取得し、$search変数に代入、ユーザーが検索フォームに入力したキーワードが格納される
+
+        if (empty($search)) {
+           $users = User::all();
+        }
+        else {
+            $users = User::where('name', 'like', "%{$search}%")->get();
+        }
+        return view('posts.searchResult', ['users' => $users, 'search' => $search]);//searchResultビューにデータを渡して、ビューを表示、$posts変数には検索結果が格納され、$search 変数にはユーザーが入力したキーワードが格納。ビュー内でこれらの変数を使用して結果を表示
+    }
+
 
 
 

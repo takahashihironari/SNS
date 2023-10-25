@@ -78,6 +78,14 @@ class User extends Authenticatable
 
     }
 
+    // 指定されたユーザーからフォローされているかどうか
+    //public function isFollowed($user)
+    //{
+
+    //    return $this->followers->contains($user);
+
+    //}
+
 
 
 }
