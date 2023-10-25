@@ -23,6 +23,7 @@
       <th>名前</th> <!--表の見出し-->
       <th>投稿内容</th> <!--表の見出し-->
       <th>投稿日時</th> <!--表の見出し-->
+      <th>更新日時</th> <!--表の見出し-->
       <th></th> <!--表の見出し-->
       <th></th> <!--表の見出し-->
     </tr>
@@ -37,6 +38,7 @@
                     </td>
                     <td>{{ $list->contents }}</td>
                     <td>{{ $list->created_at }}</td>
+                    <td>{{ $list->updated_at }}</td>
                     @if ($list->user_name == Auth::user()->name)
                         <td><a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a></td>
                         <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a></td>
