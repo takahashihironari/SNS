@@ -23,6 +23,7 @@
       <th>名前</th> <!--表の見出し-->
       <th>投稿内容</th> <!--表の見出し-->
       <th>投稿日時</th> <!--表の見出し-->
+      <th>更新日時</th> <!--表の見出し-->
       <th></th> <!--表の見出し-->
       <th></th> <!--表の見出し-->
     </tr>
@@ -31,9 +32,9 @@
             @if ($list->user_name == Auth::user()->name || in_array($list->user->id, Auth::user()->following->pluck('id')->toArray()))
                 <tr>
                     <td>
+                       <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon">
                         <a href="{{ route('user.profile', ['id' => $list->user->id]) }}" class="name">
                             {{ $list->user_name }}
-                            <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon">
                         </a>
                     </td>
                     <td>{{ $list->contents }}</td>
