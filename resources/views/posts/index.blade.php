@@ -27,22 +27,28 @@
       <th></th> <!--表の見出し-->
       <th></th> <!--表の見出し-->
     </tr>
+
     @foreach ($lists as $list)
             @if ($list->user_name == Auth::user()->name || in_array($list->user->id, Auth::user()->following->pluck('id')->toArray()))
                 <tr>
                     <td>
+                       <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon">
                         <a href="{{ route('user.profile', ['id' => $list->user->id]) }}" class="name">
                             {{ $list->user_name }}
-                            <img src="{{ asset('storage/'.$list->user->avatar) }}" alt="User Avatar" class="user-icon">
                         </a>
                     </td>
                     <td>{{ $list->contents }}</td>
                     <td>{{ $list->created_at }}</td>
-                    <td>{{ $list->updated_at }}</td>
-                    @if ($list->user_name == Auth::user()->name)
-                        <td><a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a></td>
-                        <td><a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a></td>
-                    @endif
+                     <td>
+                        @if ($list->user_name == Auth::user()->name)
+                          <a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a>
+                         @endif
+                     </td>
+                     <td>
+                         @if ($list->user_name == Auth::user()->name)
+                           <a class="btn btn-danger" href="/post/{{ $list->id }}/delete" onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">削除</a>
+                         @endif
+                     </td>
                 </tr>
             @endif
         @endforeach
