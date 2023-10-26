@@ -41,7 +41,7 @@ class ProfileController extends Controller
     $user = auth()->user();
 
       $request->validate([
-        'name' => 'required|string|max:255',
+           'name' =>'regex:/[^ 　]+$/',
         'introduction' => 'nullable|string',
         'avatar' => 'image',
     ]);

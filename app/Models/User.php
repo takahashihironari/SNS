@@ -73,19 +73,10 @@ class User extends Authenticatable
     // 指定されたユーザーをフォローしているかどうか
     public function isFollowing($user)
     {
-
-        return $this->following->contains($user);
+        $userId = $user->id; // $userのIDを取得
+        return $this->following->contains($userId);
 
     }
-
-    // 指定されたユーザーからフォローされているかどうか
-    //public function isFollowed($user)
-    //{
-
-    //    return $this->followers->contains($user);
-
-    //}
-
 
 
 }

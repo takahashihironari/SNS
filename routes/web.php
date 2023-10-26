@@ -47,7 +47,9 @@ Route::get('post/{id}/delete', [PostsController::class, 'delete']); //get通信�
 
 // フォロー関連
 Route::post('/follow/{user}', [FollowController::class, 'follow'])     -> name('follow');  //フォローする
-//Route::post('/unfollow/{user}', [FollowController::class, 'unfollow']) -> name('unfollow');  //アンフォローする
+Route::post('/unfollow/{user}', [FollowController::class, 'unfollow']) -> name('unfollow');  //アンフォローする
+
+
 
 // 検索関連
 Route::get('/user-search', [PostsController::class, 'userSearch']) -> name('user.search');
