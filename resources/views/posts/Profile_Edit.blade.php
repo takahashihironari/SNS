@@ -18,6 +18,9 @@
                 <label for="introduction">自己紹介</label>
                 <textarea class="form-control" name="introduction">{{ $user->introduction }}</textarea>
              </div>
+            @error('introduction')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 
              <div class="form-group">
                 <label for="avatar">アイコン画像</label>
