@@ -39,6 +39,7 @@
                     </td>
                     <td>{{ $list->contents }}</td>
                     <td>{{ $list->created_at }}</td>
+                    <td>{{ $list->updated_at }}</td>
                      <td>
                         @if ($list->user_name == Auth::user()->name)
                           <a class="btn btn-primary" href="/post/{{ $list->id }}/update-form">更新</a>

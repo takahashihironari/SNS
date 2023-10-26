@@ -3,7 +3,13 @@
 @section('content')
 
 <div class="contain">
+  @if (!empty($search))
     <h1>「{{$search}}」の検索結果</h1>
+  @endif
+  <form action="{{ route('user.search-result') }}" method="GET">
+      <input type="text" name="keyword" placeholder="ユーザー名を入力してください">
+      <button type="submit">検索</button>
+  </form>
 
     <ul>
         @foreach ($users as $user)
