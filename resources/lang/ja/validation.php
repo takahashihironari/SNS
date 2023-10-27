@@ -157,7 +157,8 @@ return [
     'introduction'=>'自己紹介',
     'newContents'=>'投稿内容',
     'password'=>'パスワード',
-    'email'=>'メールアドレス'
+    'email'=>'メールアドレス',
+    "upContents"=>'投稿内容'
 ],
 
 ];
