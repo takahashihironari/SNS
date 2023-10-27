@@ -11,35 +11,33 @@
             <ul>
                 @foreach ($following as $followedUser)
                     <li class=following_box>
-
                         <a href="{{ route('user.profile', ['id' => $followedUser->id]) }}">
                         <img src="{{ asset('storage/'.$followedUser->avatar) }}" alt="Profile Image" class="user-icon">
                         {{ $followedUser->name }}
                         </a>
-
-                        <form method="POST" action="{{ route('unfollow', ['user' => $followedUser->id]) }}">
-                            @csrf <button type="submit">アンフォロー</button>
-                        </form>
-
-                    </li>
+                @if (auth()->user()->id !== $followedUser->id)
+                  @if (auth()->user()->isFollowing($followedUser))
+                <form method="POST" action="{{ route('unfollow', ['user' => $followedUser->id]) }}">
+                    @csrf
+                    <button type="submit">アンフォロー</button>
+                </form>
+                  @else
+                <form method="POST" action="{{ route('follow', ['user' => $followedUser->id]) }}">
+                  @csrf
+                    <button type="submit">フォロー</button>
+                </form>
+                @endif
+                  @endif
+                </li>
                 @endforeach
             </ul>
         </div>
-
     </div>
-
 @endsection
-
-@push('styles')
-<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-@endpush
-
-
 
 
 
 <style>
-
 
 
 ul {

@@ -9,38 +9,36 @@
 
         <div class="follow-list">
             <ul>
-                @foreach ($followers as $follower)
-                <li class=followers_box>
-
+              @foreach ($followers as $follower)
+                <li class="followers_box">
                     <a href="{{ route('user.profile', ['id' => $follower->id]) }}" class="user-name">
-                    <img src="{{ asset('storage/'.$follower->avatar) }}" alt="Profile Image" class="user-icon">
-                    {{ $follower->name }}
+                        <img src="{{ asset('storage/'.$follower->avatar) }}" alt="Profile Image" class="user-icon">
+                        {{ $follower->name }}
                     </a>
 
-                    @if (auth()->user()->isFollowing($follower))
-                        <form method="POST" action="{{ route('unfollow', ['user' => $follower->id]) }}">
-                            @csrf   <button type="submit">アンフォロー</button>
-                        </form>
-                    @else
-                        <form method="POST" action="{{ route('follow', ['user' => $follower->id]) }}">
-                            @csrf  <button type="submit">フォロー</button>
-                        </form>
+                    @if (auth()->user()->id !== $follower->id)
+                        @if (auth()->user()->isFollowing($follower))
+                            <form method="POST" action="{{ route('unfollow', ['user' => $follower->id]) }}">
+                            @csrf
+                                <button type="submit">アンフォロー</button>
+                            </form>
+                            @else
+                            <form method="POST" action="{{ route('follow', ['user' => $follower->id]) }}">
+                            @csrf
+                                <button type="submit">フォロー</button>
+                            </form>
+                        @endif
                     @endif
-
                 </li>
                 @endforeach
             </ul>
        </div>
-
     </div>
-
 @endsection
 
 
 
 <style>
-
-
 ul {
     list-style: none;
     padding: 0;
